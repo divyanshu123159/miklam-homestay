@@ -1,76 +1,60 @@
+// 1. Load Navbar
+fetch('navbar.html')
+  .then(response => response.text())
+  .then(html => {
+    const container = document.getElementById('navbar-container');
+    if (container) container.innerHTML = html;
+  })
+  .catch(err => console.log('Error loading navbar:', err));
 
-  // load navbar.html and inject it into the div
-  fetch('navbar.html')
-    .then(response => response.text())
-    .then(html => {
-      document.getElementById('navbar-container').innerHTML = html;
-    })
-    .catch(err => {
-      console.log('Error loading navbar:', err);
-    });
+// This code strictly looks for img1.jpg, img2.jpg, etc.
+// This code looks STRICTLY for "images/img1.jpg"
+const autoGallery = document.getElementById('auto-gallery');
 
-// WhatsApp integration
-  const whatsappNumber = "+919876543210"; // TODO: replace with your real number
+if (autoGallery) {
+  const totalImages = 40; 
+  const imageFolder = 'images/'; 
 
-  document.getElementById("whatsappBtn").addEventListener("click", function () {
-    const checkin = document.getElementById("checkin").value;
-    const checkout = document.getElementById("checkout").value;
-    const guests = document.getElementById("guests").value;
-    const meal = document.getElementById("meal").value;
+  for (let i = 1; i <= totalImages; i++) {
+    const item = document.createElement('div');
+    item.className = 'gallery-item';
+    item.setAttribute('data-type', 'image');
+    
+    // This matches the "img (1).jpg" format shown in your folder
+    const fileName = `${imageFolder}img (${i}).jpg`; 
+    
+    item.setAttribute('data-src', fileName);
+    item.innerHTML = `
+      <img src="${fileName}" 
+           alt="Spiti Homestay ${i}" 
+           loading="lazy"
+           onerror="console.error('Browser cannot find: ' + this.src)">`;
+    autoGallery.appendChild(item);
+  }
+}
 
-    const message =
-      `Hi, I want to book at Miklam Homestay.%0A` +
-      `Check-in: ${checkin}%0A` +
-      `Check-out: ${checkout}%0A` +
-      `Guests: ${guests}%0A` +
-      `Meal plan: ${meal}%0A` +
-      `Room type: Standard Mountain Room%0A` +
-      `Please confirm availability.`;
+// 3. Lightbox Interaction
+document.addEventListener('click', (e) => {
+  const item = e.target.closest('.gallery-item');
+  if (!item) return;
 
-    const url = `https://wa.me/${whatsappNumber}?text=${message}`;
-    window.open(url, "_blank");
-  });
-  
   const overlay = document.getElementById('lightboxOverlay');
-  const closeBtn = document.getElementById('lightboxClose');
   const imgEl = document.getElementById('lightboxImage');
-  const vidEl = document.getElementById('lightboxVideo');
+  const src = item.getAttribute('data-src');
 
-  // Find all gallery items
-  document.querySelectorAll('.gallery-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const type = item.getAttribute('data-type');
-      const src = item.getAttribute('data-src');
+  if (overlay && imgEl) {
+    imgEl.src = src;
+    imgEl.style.display = 'block';
+    overlay.style.display = 'flex';
+  }
+});
 
-      // reset
-      imgEl.style.display = 'none';
-      vidEl.style.display = 'none';
-      vidEl.pause();
-
-      if (type === 'image') {
-        imgEl.src = src;
-        imgEl.style.display = 'block';
-      } else if (type === 'video') {
-        vidEl.src = src;
-        vidEl.style.display = 'block';
-        vidEl.play();
-      }
-
-      overlay.style.display = 'flex';
-    });
-  });
-
-  // close when clicking X
-  closeBtn.addEventListener('click', () => {
-    overlay.style.display = 'none';
-    vidEl.pause();
-  });
-
-  // close when clicking outside content
+// Close Lightbox logic
+const overlay = document.getElementById('lightboxOverlay');
+if (overlay) {
   overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) {
+    if (e.target === overlay || e.target.id === 'lightboxClose') {
       overlay.style.display = 'none';
-      vidEl.pause();
     }
   });
-
+}
