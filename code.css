@@ -80,7 +80,41 @@
 .nav-btn:hover {
   background-color: #000;
 }
+/* Improved Mobile Navbar */
+@media (max-width: 768px) {
+  .navbar {
+    height: 60px;
+    padding: 0 10px; /* Reduces side padding to fit more links */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
+  .nav-center {
+    display: flex; /* Show links but make them smaller */
+    gap: 8px;      /* Tighten the space between HOME, ABOUT, etc. */
+  }
+
+  .nav-link {
+    font-size: 10px; /* Smaller font for small screens */
+    letter-spacing: 0;
+  }
+
+  .brand-text {
+    font-size: 11px;
+    display: none; /* Optional: Hide text logo on very small phones to save space */
+  }
+
+  .logo-circle {
+    width: 28px;
+    height: 28px;
+  }
+
+  .nav-btn {
+    padding: 6px 10px;
+    font-size: 10px;
+  }
+}
 
 /* ---------- HERO SECTION ---------- */
 
@@ -190,6 +224,28 @@
   font-weight: 700;
   margin-bottom: 10px;
   text-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+/* Reduce Hero Height on Mobile */
+@media (max-width: 600px) {
+  .hero-section {
+    height: 40vh !important; /* Forces the height to be 40% of the screen instead of 80% */
+    min-height: 250px;       /* Ensures it doesn't get too small on very short phones */
+  }
+
+  .hero-image {
+    height: 100%;
+    object-fit: cover;      /* Keeps the mountain image from looking stretched */
+  }
+
+  .hero-text h1 {
+    font-size: 1.4rem;      /* Adjusts text size to fit the smaller box */
+    margin-bottom: 8px;
+  }
+
+  .hero-text p {
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+  }
 }
 /* ---------- ABOUT / WELCOME SECTION ---------- */
 .about-section {
@@ -817,6 +873,49 @@ html {
   color: #555;
   line-height: 1.5;
 }
+/* --- CHANGES ONLY FOR MOBILE (Phones) --- */
+@media (max-width: 600px) {
+  
+  /* 1. Make the grid a vertical column */
+  .services-grid {
+    display: flex !important;
+    flex-direction: column !important; 
+    align-items: center !important;
+    gap: 25px !important;    /* Adds clear space between stacked cards */
+    padding: 10px !important;
+    overflow-x: hidden !important; /* Prevents side-scrolling */
+  }
+
+  /* 2. Fix the card width to fit the screen */
+  .service-card {
+    width: 90% !important;   /* Card takes up most of the screen width */
+    max-width: 320px !important; 
+    flex: none !important;    /* Stops the card from trying to shrink/grow */
+    margin: 0 auto !important;
+    padding: 25px 15px !important;
+    background: #ffffff !important;
+    border: 1px solid #eaeaea !important;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05) !important;
+  }
+
+  /* 3. Adjust image and text inside the card */
+  .service-card img {
+    width: 45px !important;
+    height: 45px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .service-card h3 {
+    font-size: 1rem !important;
+    margin-bottom: 8px !important;
+  }
+
+  .service-card p {
+    font-size: 0.8rem !important;
+    line-height: 1.4 !important;
+    color: #666 !important;
+  }
+}
 /* responsive */
 
 /* ---------- GALLERY SECTION ---------- */
@@ -1064,6 +1163,51 @@ html {
   position: absolute;
   left: 0;
   color: #777;
+}
+/* --- TIGHTEN GAPS FOR MOBILE DEVICES --- */
+@media (max-width: 600px) {
+
+  /* 1. Global Reset for spacing-heavy elements */
+  h2, h3, p {
+    margin-top: 5px !important;
+    margin-bottom: 8px !important;
+  }
+
+  /* 2. Shrink all major sections vertical padding */
+  .about-section, 
+  .services-section, 
+  .booking-section,
+  .gallery-section {
+    padding: 25px 15px !important; /* Reduces 80px down to 25px */
+  }
+
+  /* 3. Fix the "Famous Places" (about-row) spacing */
+  .about-row, 
+  .about-row.reverse {
+     margin-left: 20px;/* Cuts the big gaps between places */
+    margin-right: 20px;
+     gap: 10px !important;
+  }
+
+  .places-header {
+    padding: 20px 15px 5px !important;
+  }
+
+  /* 4. Fix the Welcome section columns */
+  .about-content {
+    gap: 10px !important;
+  }
+
+  .about-left h2 {
+    font-size: 1.1rem !important;
+    padding-left: 0 !important; /* Removes your side padding */
+    text-align: center;
+  }
+  
+  /* 5. Compact the Footer */
+  .footer-section {
+    padding: 30px 15px 15px !important;
+  }
 }
 
 /* small gallery within about page */
@@ -1848,7 +1992,7 @@ html {
 .booking-left {
   flex: 1;
   min-width: 150px;
-margin-left: 70px;
+margin-left: 80px;
 }
 
 .booking-left h2 {
@@ -1913,7 +2057,7 @@ margin-left: 70px;
   padding: 15px 12px;
   max-width: 200px;
   max-height: 270px;
-  margin-left: 40px;
+  margin-left: 10px;
 }
 
 .form-group {
@@ -2034,4 +2178,144 @@ margin-left: 70px;
   font-size: 0.5rem;
   color: #888;
 }
+}
+
+@media (max-width: 450px) {
+
+  /* 1. Force the row to become a column (moves image to 2nd line) */
+  .mobile-stack-fix {
+    display: flex !important;
+    flex-direction: column !important; 
+    align-items: center !important;
+    gap: 20px !important; /* Space between text and image */
+    width: 100% !important;
+    padding: 20px 10px !important;
+  }
+
+  /* 2. Give text 100% width so it doesn't overlap the image */
+  .mobile-stack-fix .about-left {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    order: 1 !important; /* Text on top */
+  }
+
+  /* 3. Center the heading and remove the right-side push */
+  .mobile-stack-fix .about-left h2 {
+    padding-left: 0 !important;
+    text-align: center !important;
+    font-size: 1.2rem !important;
+  }
+
+  /* 4. Give image 100% width and move it below the text */
+  .mobile-stack-fix .about-right {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    order: 2 !important; /* Image on bottom line */
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  /* 5. Fix the image box size to fit the screen perfectly */
+  .mobile-stack-fix .about-image-box {
+    width: 90% !important;
+    max-width: 320px !important;
+    height: 180px !important;
+    margin: 0 auto !important;
+  }
+
+  .mobile-stack-fix .about-image-box img {
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover !important;
+    border-radius: 10px !important;
+  }
+}
+@media (max-width: 450px) {
+
+  /* 1. Force the row to become a column (stacks image below text) */
+  .mobile-stack-fix {
+    display: flex !important;
+    flex-direction: column !important; 
+    align-items: center !important;
+    gap: 20px !important; /* Adds space between text and image */
+    width: 100% !important;
+    padding: 20px 10px !important;
+  }
+
+  /* 2. Give text box 100% width so it doesn't overlap */
+  .mobile-stack-fix .about-left {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    order: 1 !important; /* Text on top */
+  }
+
+  /* 3. Give image box 100% width and place on 2nd line */
+  .mobile-stack-fix .about-right {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    order: 2 !important; /* Image on bottom line */
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  /* 4. Fix heading alignment and remove right-side push */
+  .mobile-stack-fix h2 {
+    padding-left: 0 !important;
+    text-align: center !important;
+    font-size: 1.2rem !important;
+    width: 100% !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* 5. Center the image and fix its size */
+  .mobile-stack-fix .about-image-box {
+    width: 90% !important;
+    max-width: 320px !important;
+    height: 180px !important;
+    margin: 0 auto !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+  }
+
+  .mobile-stack-fix .about-image-box img {
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover !important;
+  }
+
+  /* 6. Center the bullet points */
+  .mobile-stack-fix .about-features {
+    display: inline-block !important;
+    text-align: left !important;
+    margin: 10px auto !important;
+    padding-left: 0 !important;
+  }
+}
+/* ============================================================
+   FIX RIGHT-SIDE WHITE SPACE (OVERFLOW RESET)
+   ============================================================ */
+
+/* 1. Prevent the entire page from sliding horizontally */
+html, body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* This stops the right-side white gap */
+  position: relative;
+}
+
+/* --- FOOTER LINK STYLING --- */
+.footer-contact a {
+  color: #bbb; /* Matches your current footer text color */
+  text-decoration: none; /* Removes default underline */
+  transition: color 0.2s ease;
+}
+
+.footer-contact a:hover {
+  color: #fff; /* Turns white when touched or hovered */
+  text-decoration: underline; /* Adds underline back on hover for clarity */
 }
